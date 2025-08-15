@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C 50-Day Challenge</title>
+<style>
+body {
+    background-color: #121212;
+    color: white;
+    font-family: monospace;
+    text-align: center;
+    padding: 50px;
+}
+h1 {
+    color: #ccc;
+    animation: fadeIn 0.8s ease-in-out;
+}
+#codeBox, #outputBox, #explanationBox {
+    margin-top: 20px;
+    font-size: 16px;
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 120px;
+    display: inline-block;
+    white-space: pre-wrap;
+    animation: fadeIn 0.8s ease-in-out;
+    text-align: left;
+    width: 90%;
+    max-width: 800px;
+}
+button {
+    background: linear-gradient(145deg, #1e1e1e, #2b2b2b);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(145deg, #2b2b2b, #3a3a3a);
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<h1>C 50-Day Coding Challenge</h1>
+
+<div id="codeBox">Loading code...</div>
+<div id="outputBox">Expected Output...</div>
+<div id="explanationBox">Explanation...</div><br>
+
+<button onclick="nextDay()">Next Program</button>
+<a href="coding.html"><button>Back to Languages</button></a>
+
+<script>
+const cPrograms = [
+{day:"Day 1", code:"#include <stdio.h>\nint main() {\n    printf(\"Hello World\\n\");\n    return 0;\n}", output:"Hello World", explanation:"Prints Hello World."},
+{day:"Day 2", code:"#include <stdio.h>\nint main() {\n    int a=5,b=7;\n    printf(\"Sum = %d\", a+b);\n    return 0;\n}", output:"Sum = 12", explanation:"Adds two numbers and prints the sum."},
+{day:"Day 3", code:"#include <stdio.h>\nint main() {\n    int num=9;\n    if(num%2==0) printf(\"Even\\n\");\n    else printf(\"Odd\\n\");\n    return 0;\n}", output:"Odd", explanation:"Checks if number is even or odd."},
+{day:"Day 4", code:"#include <stdio.h>\nint main() {\n    int num=5,fact=1;\n    for(int i=1;i<=num;i++) fact *= i;\n    printf(\"%d\", fact);\n    return 0;\n}", output:"120", explanation:"Calculates factorial using loop."},
+{day:"Day 5", code:"#include <stdio.h>\nint main() {\n    int a=0,b=1,next;\n    printf(\"%d %d \",a,b);\n    for(int i=0;i<8;i++) {\n        next=a+b;\n        printf(\"%d \",next);\n        a=b;\n        b=next;\n    }\n    return 0;\n}", output:"0 1 1 2 3 5 8 13 21 34", explanation:"Prints first 10 Fibonacci numbers."},
+{day:"Day 6", code:"#include <stdio.h>\n#include <string.h>\nint main() {\n    char str[]=\"Python\";\n    for(int i=strlen(str)-1;i>=0;i--) printf(\"%c\",str[i]);\n    return 0;\n}", output:"nohtyP", explanation:"Reverses a string."},
+{day:"Day 7", code:"#include <stdio.h>\n#include <string.h>\nint main() {\n    char str[]=\"Hello World\";\n    int count=0;\n    for(int i=0;i<strlen(str);i++) {\n        if(str[i]=='a'||str[i]=='e'||str[i]=='i'||str[i]=='o'||str[i]=='u'||str[i]=='A'||str[i]=='E'||str[i]=='I'||str[i]=='O'||str[i]=='U') count++;\n    }\n    printf(\"%d\",count);\n    return 0;\n}", output:"3", explanation:"Counts vowels in string."},
+{day:"Day 8", code:"#include <stdio.h>\nint main() {\n    int arr[]={4,7,2,9,1}, max=arr[0];\n    for(int i=1;i<5;i++) if(arr[i]>max) max=arr[i];\n    printf(\"%d\", max);\n    return 0;\n}", output:"9", explanation:"Finds maximum number in array."},
+{day:"Day 9", code:"#include <stdio.h>\nint main() {\n    int arr[]={4,7,2,9,1}, min=arr[0];\n    for(int i=1;i<5;i++) if(arr[i]<min) min=arr[i];\n    printf(\"%d\", min);\n    return 0;\n}", output:"1", explanation:"Finds minimum number in array."},
+{day:"Day 10", code:"#include <stdio.h>\nint main() {\n    int arr[]={1,2,3,4,5}, sum=0;\n    for(int i=0;i<5;i++) sum+=arr[i];\n    printf(\"%d\", sum);\n    return 0;\n}", output:"15", explanation:"Calculates sum of array elements."},
+{day:"Day 11", code:"#include <stdio.h>\nint main() {\n    for(int i=1;i<=5;i++) printf(\"%d \",i*i);\n    return 0;\n}", output:"1 4 9 16 25", explanation:"Print squares of first 5 numbers."},
+{day:"Day 12", code:"#include <stdio.h>\nint main() {\n    int a=10,b=5;\n    printf(\"Add: %d\\nSub: %d\\nMul: %d\\nDiv: %.2f\", a+b, a-b, a*b, (float)a/b);\n    return 0;\n}", output:"Add: 15\nSub: 5\nMul: 50\nDiv: 2.00", explanation:"Simple arithmetic operations."},
+{day:"Day 13", code:"#include <stdio.h>\n#include <stdbool.h>\nint main() {\n    int num=13;\n    bool isPrime=true;\n    for(int i=2;i<num;i++) if(num%i==0) { isPrime=false; break;}\n    printf(isPrime ? \"Prime\" : \"Not Prime\");\n    return 0;\n}", output:"Prime", explanation:"Checks if number is prime."},
+{day:"Day 14", code:"#include <stdio.h>\nint main() {\n    int lst[5];\n    for(int i=0;i<5;i++) lst[i]=(i+1)*(i+1);\n    for(int i=0;i<5;i++) printf(\"%d \",lst[i]);\n    return 0;\n}", output:"1 4 9 16 25", explanation:"Squares using array."},
+{day:"Day 15", code:"#include <stdio.h>\nint main() {\n    int lst[]={1,2,3,4,5}, n=5;\n    for(int i=0;i<n/2;i++) { int t=lst[i]; lst[i]=lst[n-1-i]; lst[n-1-i]=t; }\n    for(int i=0;i<n;i++) printf(\"%d \",lst[i]);\n    return 0;\n}", output:"5 4 3 2 1", explanation:"Reverses array."},
+{day:"Day 16", code:"#include <stdio.h>\nint main() {\n    int a=1,b=2,c=3;\n    printf(\"%d\",b);\n    return 0;\n}", output:"2", explanation:"Accesses value in variables (like dictionary key in Python)."},
+{day:"Day 17", code:"#include <stdio.h>\nint main() {\n    int a=1,b;\n    b=2;\n    printf(\"a=%d b=%d\",a,b);\n    return 0;\n}", output:"a=1 b=2", explanation:"Adds new variable value."},
+{day:"Day 18", code:"#include <stdio.h>\nint main() {\n    int s1[]={1,2,3}, s2[]={2,3,4}, i,j;\n    printf(\"{\");\n    for(i=0;i<3;i++)\n        for(j=0;j<3;j++)\n            if(s1[i]==s2[j]) printf(\"%d \",s1[i]);\n    printf(\"}\");\n    return 0;\n}", output:"{2 3 }", explanation:"Finds intersection of two sets."},
+{day:"Day 19", code:"#include <stdio.h>\n#include <string.h>\nint main() {\n    char s[]=\"radar\";\n    int n=strlen(s), flag=1;\n    for(int i=0;i<n/2;i++) if(s[i]!=s[n-1-i]) flag=0;\n    printf(flag?\"Palindrome\":\"Not Palindrome\");\n    return 0;\n}", output:"Palindrome", explanation:"Checks palindrome string."},
+{day:"Day 20", code:"#include <stdio.h>\n#include <string.h>\nint main() {\n    char s[]=\"Hello world from C\";\n    int count=1;\n    for(int i=0;i<strlen(s);i++) if(s[i]==' ') count++;\n    printf(\"%d\",count);\n    return 0;\n}", output:"4", explanation:"Counts words in a string."},
+{day:"Day 21", code:"#include <stdio.h>\nint lcm(int a,int b){\n    int max=(a>b)?a:b;\n    while(1){\n        if(max%a==0 && max%b==0) return max;\n        max++;\n    }\n}\nint main(){\n    printf(\"%d\", lcm(4,6));\n    return 0;\n}", output:"12", explanation:"Calculates LCM."},
+{day:"Day 22", code:"#include <stdio.h>\nint main(){\n    int num=12345,sum=0;\n    while(num){ sum+=num%10; num/=10; }\n    printf(\"%d\",sum);\n    return 0;\n}", output:"15", explanation:"Sum of digits."},
+{day:"Day 23", code:"#include <stdio.h>\nint main(){\n    int lst[]={1,2,3,4,5,6}, evens[6],j=0;\n    for(int i=0;i<6;i++) if(lst[i]%2==0) evens[j++]=lst[i];\n    for(int i=0;i<j;i++) printf(\"%d \",evens[i]);\n    return 0;\n}", output:"2 4 6", explanation:"Filters even numbers."},
+{day:"Day 24", code:"#include <stdio.h>\n#include <string.h>\nint main(){\n    char s[]=\"hello world\";\n    int count=0;\n    for(int i=0;i<strlen(s);i++) if(s[i]=='l') count++;\n    printf(\"%d\",count);\n    return 0;\n}", output:"3", explanation:"Counts character occurrences."},
+{day:"Day 25", code:"#include <stdio.h>\nint main(){\n    int year=2024;\n    printf((year%4==0 && (year%100!=0 || year%400==0))?\"Leap Year\":\"Not Leap Year\");\n    return 0;\n}", output:"Leap Year", explanation:"Checks leap year."},
+{day:"Day 26", code:"#include <stdio.h>\nint main(){\n    int num=5;\n    for(int i=1;i<=10;i++) printf(\"%d x %d = %d\\n\", num,i,num*i);\n    return 0;\n}", output:"5 x 1 = 5 ... 5 x 10 = 50", explanation:"Multiplication table."},
+{day:"Day 27", code:"#include <stdio.h>\nint main(){\n    int lst1[]={1,2}, lst2[]={3,4}, merged[4];\n    for(int i=0;i<2;i++) merged[i]=lst1[i];\n    for(int i=0;i<2;i++) merged[i+2]=lst2[i];\n    for(int i=0;i<4;i++) printf(\"%d \",merged[i]);\n    return 0;\n}", output:"1 2 3 4", explanation:"Merge two arrays."},
+{day:"Day 28", code:"#include <stdio.h>\nint main(){\n    int lst[]={1,2,2,3,3,3,4}, temp[7], n=0;\n    for(int i=0;i<7;i++) {\n        int flag=0;\n        for(int j=0;j<n;j++) if(lst[i]==temp[j]) flag=1;\n        if(!flag) temp[n++]=lst[i];\n    }\n    for(int i=0;i<n;i++) printf(\"%d \",temp[i]);\n    return 0;\n}", output:"1 2 3 4", explanation:"Remove duplicates."},
+{day:"Day 29", code:"#include <stdio.h>\nint main(){\n    char ch='A';\n    printf(\"%d\",ch);\n    return 0;\n}", output:"65", explanation:"ASCII value."},
+{day:"Day 30", code:"#include <stdio.h>\nint main(){\n    float c=37,f;\n    f=(c*9/5)+32;\n    printf(\"%.1f\",f);\n    return 0;\n}", output:"98.6", explanation:"Celsius to Fahrenheit."},
+{day:"Day 31", code:"#include <stdio.h>\nint main(){\n    float p=1000,r=5,t=2,si;\n    si=(p*r*t)/100;\n    printf(\"%.1f\",si);\n    return 0;\n}", output:"100.0", explanation:"Simple interest."},
+{day:"Day 32", code:"#include <stdio.h>\n#include <string.h>\nint main(){\n    char s[]=\"C is fun\";\n    char temp[50]; int idx=0;\n    char *token=strtok(s,\" \");\n    while(token){\n        strcpy(temp+idx,token);\n        idx+=strlen(token);\n        token=strtok(NULL,\" \");\n        if(token) temp[idx++]=' ';\n    }\n    for(int i=idx-1;i>=0;i--) printf(\"%c\",temp[i]);\n    return 0;\n}", output:"fun is C", explanation:"Reverse words in sentence."},
+{day:"Day 33", code:"#include <stdio.h>\nint main(){\n    int num=153,sum=0,temp=num;\n    while(temp){ int digit=temp%10; sum+=digit*digit*digit; temp/=10; }\n    printf((sum==num)?\"Armstrong\":\"Not Armstrong\");\n    return 0;\n}", output:"Armstrong", explanation:"Checks Armstrong number."},
+{day:"Day 34", code:"#include <stdio.h>\n#include <stdlib.h>\n#include <time.h>\nint main(){\n    srand(time(0));\n    printf(\"%d\",rand()%100+1);\n    return 0;\n}", output:"(random number 1-100)", explanation:"Generates random number."},
+{day:"Day 35", code:"#include <stdio.h>\n#include <unistd.h>\nint main(){\n    for(int i=5;i>0;i--){ printf(\"%d\\n\",i); sleep(1); }\n    printf(\"Go!\");\n    return 0;\n}", output:"5 4 3 2 1 Go!", explanation:"Countdown timer."},
+{day:"Day 36", code:"#include <stdio.h>\nint main(){\n    char name[50];\n    printf(\"Enter name: \");\n    scanf(\"%s\",name);\n    printf(\"Hello %s\",name);\n    return 0;\n}", output:"Enter name: Alice\nHello Alice", explanation:"Reads input and greets."},
+{day:"Day 37", code:"#include <stdio.h>\nint main(){\n    FILE *f=fopen(\"test.txt\",\"w\");\n    fprintf(f,\"Hello World\");\n    fclose(f);\n    return 0;\n}", output:"(Writes 'Hello World' to file)", explanation:"Writes string to file."},
+{day:"Day 38", code:"#include <stdio.h>\nint main(){\n    char buffer[100];\n    FILE *f=fopen(\"test.txt\",\"r\");\n    fgets(buffer,100,f);\n    printf(\"%s\",buffer);\n    fclose(f);\n    return 0;\n}", output:"Hello World", explanation:"Reads file content."},
+{day:"Day 39", code:"#include <stdio.h>\nint main(){\n    int n=10,sum=0;\n    for(int i=1;i<=n;i++) sum+=i;\n    printf(\"%d\",sum);\n    return 0;\n}", output:"55", explanation:"Sum of first 10 natural numbers."},
+{day:"Day 40", code:"#include <stdio.h>\n#include <string.h>\nint main(){\n    char s[]=\"Hello World\";\n    int count=0;\n    for(int i=0;i<strlen(s);i++) if(s[i]>='A' && s[i]<='Z') count++;\n    printf(\"%d\",count);\n    return 0;\n}", output:"2", explanation:"Counts uppercase letters."},
+{day:"Day 41", code:"#include <stdio.h>\nint main(){\n    int a=5,b=10,temp;\n    temp=a; a=b; b=temp;\n    printf(\"%d %d\",a,b);\n    return 0;\n}", output:"10 5", explanation:"Swaps two numbers."},
+{day:"Day 42", code:"#include <stdio.h>\nint main(){\n    for(int num=2;num<=20;num++){\n        int prime=1;\n        for(int i=2;i<num;i++) if(num%i==0){prime=0;break;}\n        if(prime) printf(\"%d \",num);\n    }\n    return 0;\n}", output:"2 3 5 7 11 13 17 19", explanation:"Prints primes up to 20."},
+{day:"Day 43", code:"#include <stdio.h>\nint main(){\n    char *lst[] = {\"C\",\"Fun\"};\n    printf(\"%s %s\",lst[0],lst[1]);\n    return 0;\n}", output:"C Fun", explanation:"Convert list to string."},
+{day:"Day 44", code:"#include <stdio.h>\n#include <math.h>\nint main(){\n    printf(\"%d\",(int)pow(2,5));\n    return 0;\n}", output:"32", explanation:"Calculate power."},
+{day:"Day 45", code:"#include <stdio.h>\nfloat c_to_f(float c){ return (c*9/5)+32; }\nint main(){\n    printf(\"%.1f\",c_to_f(0));\n    return 0;\n}", output:"32.0", explanation:"Temperature conversion function."},
+{day:"Day 46", code:"#include <stdio.h>\nint main(){\n    int lst[]={1,2,3,4,5},even=0,odd=0;\n    for(int i=0;i<5;i++) if(lst[i]%2==0) even++; else odd++;\n    printf(\"Even: %d Odd: %d\",even,odd);\n    return 0;\n}", output:"Even: 2 Odd: 3", explanation:"Count even and odd numbers."},
+{day:"Day 47", code:"#include <stdio.h>\nint main(){\n    for(int i=1;i<=10;i++) printf(\"%d%s\",i*3,(i<10)?\" \":\"\");\n    return 0;\n}", output:"3 6 9 12 15 18 21 24 27 30", explanation:"Multiples of 3."},
+{day:"Day 48", code:"#include <stdio.h>\n#include <stdlib.h>\n#include <time.h>\nint main(){\n    srand(time(0));\n    int n=rand()%5+1, guess;\n    printf(\"Guess 1-5: \");\n    scanf(\"%d\",&guess);\n    printf((guess==n)?\"Correct!\":\"Wrong, was %d\",n);\n    return 0;\n}", output:"(depends on input/random)", explanation:"Simple guessing game."},
+{day:"Day 49", code:"#include <stdio.h>\n#include <time.h>\nint main(){\n    printf(\"August 2025 calendar\\n\");\n    for(int i=1;i<=31;i++) printf(\"%2d \",i);\n    return 0;\n}", output:"(August 2025 calendar)", explanation:"Print calendar."},
+{day:"Day 50", code:"#include <stdio.h>\nfloat calc(float a,float b,char op){\n    if(op=='+') return a+b;\n    else if(op=='-') return a-b;\n    else if(op=='*') return a*b;\n    else if(op=='/') return a/b;\n    else return 0;\n}\nint main(){\n    printf(\"%.0f\",calc(10,5,'*'));\n    return 0;\n}", output:"50", explanation:"Mini calculator function."}
+
+
+];
+
+let index = 0;
+
+function showProgram(i){
+    document.getElementById("codeBox").innerText = cPrograms[i].code;
+    document.getElementById("outputBox").innerText = "Expected Output:\n" + cPrograms[i].output;
+    document.getElementById("explanationBox").innerText = "Explanation:\n" + cPrograms[i].explanation;
+}
+
+function nextDay(){
+    index++;
+    if(index >= cPrograms.length) index = 0;
+    showProgram(index);
+}
+
+showProgram(0);
+</script>
+</body>
+</html>

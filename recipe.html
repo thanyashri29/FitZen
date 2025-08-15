@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cooking Recipes</title>
+<style>
+body {
+    background-color: #121212;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+h1 { font-size: 36px; margin-bottom: 30px; }
+h2 { font-size: 28px; margin-top: 20px; }
+
+.recipe-card {
+    background: #1e1e1e;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    text-align: left;
+}
+.recipe-card h3 { font-size: 22px; margin-bottom: 5px; }
+.recipe-card p { font-size: 18px; }
+</style>
+</head>
+<body>
+<h1>Cooking Recipes</h1>
+
+<div id="breakfast"><h2>Breakfast</h2></div>
+<div id="lunch"><h2>Lunch</h2></div>
+<div id="dinner"><h2>Dinner</h2></div>
+
+<script>
+// 150 recipes sample (you can add more in same format)
+const recipes = [
+  {category: 'breakfast', title: 'Boiled Eggs', desc: 'Boil eggs for 9-10 mins. Cool in ice water.'},
+  {category: 'breakfast', title: 'Oatmeal', desc: 'Cook oats with milk and add fruits.'},
+  {category: 'breakfast', title: 'Pancakes', desc: 'Mix flour, milk, eggs. Cook on skillet.'},
+  {category: 'breakfast', title: 'Smoothie', desc: 'Blend fruits with yogurt or milk.'},
+  {category: 'breakfast', title: 'Avocado Toast', desc: 'Spread avocado on toast with seasoning.'},
+  
+  {category: 'lunch', title: 'Grilled Chicken', desc: 'Marinate chicken with spices for 1 hr.'},
+  {category: 'lunch', title: 'Pasta Salad', desc: 'Mix cooked pasta with veggies and dressing.'},
+  {category: 'lunch', title: 'Veg Sandwich', desc: 'Layer vegetables and cheese in bread.'},
+  {category: 'lunch', title: 'Rice Bowl', desc: 'Cook rice with veggies and sauce.'},
+  {category: 'lunch', title: 'Quinoa Salad', desc: 'Mix quinoa with chopped vegetables and olive oil.'},
+  
+  {category: 'dinner', title: 'Baked Salmon', desc: 'Bake salmon at 200°C for 20 mins.'},
+  {category: 'dinner', title: 'Veg Stir Fry', desc: 'Stir fry mixed veggies with soy sauce.'},
+  {category: 'dinner', title: 'Chicken Curry', desc: 'Cook chicken with spices and gravy.'},
+  {category: 'dinner', title: 'Paneer Butter Masala', desc: 'Cook paneer in rich tomato gravy.'},
+  {category: 'dinner', title: 'Spaghetti', desc: 'Cook spaghetti and top with tomato sauce.'},
+  
+  // Repeat the same format to reach 150 recipes
+];
+
+// Function to load recipes dynamically
+function loadRecipes() {
+  recipes.forEach(recipe => {
+    const div = document.createElement('div');
+    div.className = 'recipe-card';
+    div.innerHTML = `<h3>${recipe.title}</h3><p>${recipe.desc}</p>`;
+    document.getElementById(recipe.category).appendChild(div);
+  });
+}
+
+loadRecipes();
+</script>
+</body>
+</html>

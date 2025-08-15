@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>150-Day Mindfulness Challenge</title>
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<h1>150-Day Mindfulness Challenge</h1>
+
+<label for="categorySelect">Choose a category:</label>
+<select id="categorySelect" onchange="changeCategory()">
+    <option value="breathing">Breathing & Awareness</option>
+    <option value="body">Body & Movement</option>
+    <option value="daily">Daily Mindful Actions</option>
+</select>
+
+<div id="tipBox">Loading tip...</div>
+
+<div>
+<button onclick="prevTip()">⬅ Previous</button>
+<button onclick="nextTip()">Next ➡</button>
+</div>
+
+<script>
+const mindfulnessCategories = {
+    breathing: [
+        "Day 1: Focus on 5 deep breaths.",
+        "Day 2: Observe your breathing while sitting quietly for 3 minutes.",
+        "Day 3: Count each inhale and exhale up to 20 breaths.",
+        "Day 4: Notice the pause between inhale and exhale.",
+        "Day 5: Try box breathing: inhale-hold-exhale-hold.",
+        "Day 6: Place a hand on your chest and feel it rise and fall.",
+        "Day 7: Inhale for 4 counts, exhale for 6 counts.",
+        "Day 8: Practice alternate nostril breathing.",
+        "Day 9: Breathe in and silently say 'peace', breathe out 'calm'.",
+        "Day 10: Count your breaths backward from 20.",
+        "Day 11: Visualize breath entering and leaving your body.",
+        "Day 12: Focus on belly movement while breathing.",
+        "Day 13: Take 3 mindful breaths before meals.",
+        "Day 14: Inhale deeply before stressful situations.",
+        "Day 15: Notice the sensation at the tip of your nose while breathing.",
+        "Day 16: Try diaphragmatic breathing for 5 minutes.",
+        "Day 17: Imagine inhaling positive energy, exhaling tension.",
+        "Day 18: Take slow breaths while listening to calming music.",
+        "Day 19: Count each exhale to improve focus.",
+        "Day 20: Notice how your body feels at each breath.",
+        "Day 21: Inhale and mentally say 'I am', exhale 'calm'.",
+        "Day 22: Focus on the rhythm of your breathing during a walk.",
+        "Day 23: Try 4-7-8 breathing method before sleep.",
+        "Day 24: Place focus on breath at the start of the day.",
+        "Day 25: Breathe and visualize energy flowing to tense areas.",
+        "Day 26: Try mindful yawning and deep breaths.",
+        "Day 27: Breathe while noticing ambient sounds.",
+        "Day 28: Focus on gentle breath as you wash hands.",
+        "Day 29: Practice mindful sighing for release.",
+        "Day 30: Track breaths without changing them for 5 minutes.",
+        "Day 31: Breathe in sunlight, exhale stress.",
+        "Day 32: Feel the air on your lips during inhale.",
+        "Day 33: Notice your chest rise slowly without effort.",
+        "Day 34: Observe abdominal movements while lying down.",
+        "Day 35: Breathe with the awareness of temperature change.",
+        "Day 36: Sync breath with gentle music rhythm.",
+        "Day 37: Inhale for 3, hold 3, exhale 3, hold 3.",
+        "Day 38: Focus on your breathing while standing tall.",
+        "Day 39: Try mindful humming while exhaling.",
+        "Day 40: Observe changes in breath after light exercise.",
+        "Day 41: Breath awareness during waiting periods.",
+        "Day 42: Focus on nostril airflow without altering it.",
+        "Day 43: Take calming breaths during tension.",
+        "Day 44: Observe belly expansion and contraction.",
+        "Day 45: Try gentle breaths with closed eyes.",
+        "Day 46: Notice your posture while breathing deeply.",
+        "Day 47: Synchronize breathing with slow stretching.",
+        "Day 48: Observe inhaling aroma consciously.",
+        "Day 49: Focus on exhale longer than inhale.",
+        "Day 50: Take 10 mindful breaths before sleep."
+    ],
+    body: [
+        "Day 1: Stretch arms and legs slowly.",
+        "Day 2: Take a mindful walk for 10 minutes.",
+        "Day 3: Observe posture while sitting.",
+        "Day 4: Slowly roll shoulders back and forth.",
+        "Day 5: Stretch neck gently.",
+        "Day 6: Focus on hand movements while washing dishes.",
+        "Day 7: Practice mindful squats.",
+        "Day 8: Stretch calves and feet after waking up.",
+        "Day 9: Observe your walking steps consciously.",
+        "Day 10: Gentle torso twists while seated.",
+        "Day 11: Notice muscle tension while stretching.",
+        "Day 12: Practice mindful yoga poses.",
+        "Day 13: Observe sensation in hands while typing.",
+        "Day 14: Shake arms and legs gently to release tension.",
+        "Day 15: Perform mindful shoulder shrugs.",
+        "Day 16: Focus on breathing while stretching back.",
+        "Day 17: Stand tall and feel grounding through feet.",
+        "Day 18: Observe body temperature changes during movement.",
+        "Day 19: Try mindful hand exercises.",
+        "Day 20: Gentle wrist rotations while seated.",
+        "Day 21: Focus on spine alignment during posture checks.",
+        "Day 22: Stretch sides of the body while breathing.",
+        "Day 23: Mindful toe wiggling to release stress.",
+        "Day 24: Observe tension while bending forward slowly.",
+        "Day 25: Stretch arms above head and feel body lengthen.",
+        "Day 26: Mindfully touch each finger sequentially.",
+        "Day 27: Perform slow, mindful sit-to-stand movements.",
+        "Day 28: Observe shoulder blades while breathing deeply.",
+        "Day 29: Gentle ankle rotations before walking.",
+        "Day 30: Mindful seated twists to release back tension.",
+        "Day 31: Observe muscle engagement while lifting light objects.",
+        "Day 32: Stretch hamstrings slowly while seated.",
+        "Day 33: Mindful squats with focus on breathing.",
+        "Day 34: Observe body temperature during gentle walking.",
+        "Day 35: Perform slow lunges with awareness.",
+        "Day 36: Mindfully roll feet on a soft ball.",
+        "Day 37: Stretch wrists and forearms while typing breaks.",
+        "Day 38: Observe shoulders and neck while breathing.",
+        "Day 39: Gentle side stretches while standing.",
+        "Day 40: Focus on posture during screen time.",
+        "Day 41: Mindful shoulder rolls in the morning.",
+        "Day 42: Observe changes in muscles after stretching.",
+        "Day 43: Stretch chest and back with awareness.",
+        "Day 44: Mindful step-ups on stairs.",
+        "Day 45: Gentle stretches while listening to music.",
+        "Day 46: Focus on knees while performing small squats.",
+        "Day 47: Observe hip movements while walking.",
+        "Day 48: Mindful stretching of calves and ankles.",
+        "Day 49: Observe arm swings while walking.",
+        "Day 50: Relax body consciously before sleep."
+    ],
+    daily: [
+        "Day 1: Eat one meal mindfully.",
+        "Day 2: List 3 things you are grateful for.",
+        "Day 3: Practice mindful listening.",
+        "Day 4: Observe surrounding sounds for 5 minutes.",
+        "Day 5: Pause before starting tasks.",
+        "Day 6: Notice sensations while drinking water.",
+        "Day 7: Be present while brushing teeth.",
+        "Day 8: Observe your thoughts without judgment.",
+        "Day 9: Smile mindfully at someone.",
+        "Day 10: Take a short mindful break every 2 hours.",
+        "Day 11: Observe weather changes consciously.",
+        "Day 12: Notice walking steps while moving.",
+        "Day 13: Take slow, mindful bites during meals.",
+        "Day 14: Practice mindful listening to music.",
+        "Day 15: Observe your emotions without reacting.",
+        "Day 16: Keep a mindful journal.",
+        "Day 17: Pause and take 3 deep breaths before replying.",
+        "Day 18: Mindfully observe colors around you.",
+        "Day 19: Notice tactile sensations while touching objects.",
+        "Day 20: Appreciate your body while moving.",
+        "Day 21: Be fully present while washing hands.",
+        "Day 22: Observe your surroundings during commute.",
+        "Day 23: Pause and notice posture every hour.",
+        "Day 24: Mindfully perform routine chores.",
+        "Day 25: Observe small details in nature.",
+        "Day 26: Notice eye strain and relax periodically.",
+        "Day 27: Take mindful breaks from devices.",
+        "Day 28: Observe your heartbeat after mild exercise.",
+        "Day 29: Take slow, deep breaths while waiting.",
+        "Day 30: Practice mindful gratitude journaling.",
+        "Day 31: Smile at yourself in the mirror.",
+        "Day 32: Observe texture of food before eating.",
+        "Day 33: Pause and notice sounds while outdoors.",
+        "Day 34: Observe body sensations while seated.",
+        "Day 35: Take a mindful shower noticing water flow.",
+        "Day 36: Mindfully drink tea or coffee.",
+        "Day 37: Notice smells in your environment.",
+        "Day 38: Observe light changes during day.",
+        "Day 39: Take 5 conscious deep breaths before meetings.",
+        "Day 40: Observe posture while using phone.",
+        "Day 41: Pause and breathe before stressful emails.",
+        "Day 42: Mindfully watch a sunrise or sunset.",
+        "Day 43: Observe how clothes feel on your skin.",
+        "Day 44: Notice tactile textures while walking barefoot.",
+        "Day 45: Practice mindful chewing.",
+        "Day 46: Take deep breaths while waiting in line.",
+        "Day 47: Observe temperature on skin consciously.",
+        "Day 48: Mindfully acknowledge your feelings.",
+        "Day 49: Take slow breaths while reading.",
+        "Day 50: Reflect on mindful activities before sleep."
+    ]
+};
+
+let currentCategory = 'breathing';
+let index = 0;
+
+function showTip() {
+    const tips = mindfulnessCategories[currentCategory];
+    document.getElementById("tipBox").innerText = tips[index];
+}
+
+function nextTip() {
+    const tips = mindfulnessCategories[currentCategory];
+    index = (index + 1) % tips.length;
+    showTip();
+}
+
+function prevTip() {
+    const tips = mindfulnessCategories[currentCategory];
+    index = (index - 1 + tips.length) % tips.length;
+    showTip();
+}
+
+function changeCategory() {
+    const select = document.getElementById("categorySelect");
+    currentCategory = select.value;
+    index = 0;
+    showTip();
+}
+
+showTip();
+</script>
+</body>
+</html>

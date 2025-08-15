@@ -1,0 +1,82 @@
+/* style.css */
+
+/* Body and general layout */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Header */
+h1 {
+    margin-top: 30px;
+    font-size: 2.2em;
+    color: #00796b;
+    text-align: center;
+    animation: fadeInDown 1s ease forwards;
+}
+
+/* Tip Box */
+#tipBox {
+    background: #ffffffcc;
+    padding: 30px;
+    margin: 20px 0;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    max-width: 700px;
+    width: 90%;
+    font-size: 18px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#tipBox:hover { 
+    transform: scale(1.02); 
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* Buttons and Select */
+button, select {
+    background: linear-gradient(145deg, #a7ffeb, #64ffda);
+    color: #004d40;
+    border: none;
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-weight: bold;
+}
+
+button:hover, select:hover { 
+    transform: scale(1.05); 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+}
+
+/* Animations */
+@keyframes fadeInDown { 
+    from { opacity: 0; transform: translateY(-20px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    #tipBox {
+        font-size: 16px;
+        padding: 20px;
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    button, select {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}

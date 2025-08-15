@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C++ 50-Day Challenge</title>
+<style>
+body { background-color: #121212; color: white; font-family: monospace; text-align: center; padding: 50px; }
+h1 { color: #ccc; animation: fadeIn 0.8s ease-in-out; }
+#codeBox, #outputBox, #explanationBox { margin-top: 20px; font-size: 16px; background: #1e1e1e; padding: 20px; border-radius: 10px; min-height: 120px; display: inline-block; white-space: pre-wrap; animation: fadeIn 0.8s ease-in-out; text-align: left; width: 90%; max-width: 800px; }
+button { background: linear-gradient(145deg, #1e1e1e, #2b2b2b); color: white; border: none; padding: 12px 25px; margin: 10px; font-size: 18px; cursor: pointer; border-radius: 8px; transition: transform 0.3s ease, background 0.3s ease; }
+button:hover { transform: scale(1.1); background: linear-gradient(145deg, #2b2b2b, #3a3a3a); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<h1>C++ 50-Day Coding Challenge</h1>
+
+<div id="codeBox">Loading code...</div>
+<div id="outputBox">Expected Output...</div>
+<div id="explanationBox">Explanation...</div><br>
+
+<button onclick="nextDay()">Next Program</button>
+<a href="languages.html"><button>Back to Languages</button></a>
+
+<script>
+const cppPrograms = [
+{day:"Day 1", code:"#include <iostream>\nusing namespace std;\nint main(){\n cout << \"Hello World\";\n return 0;\n}", output:"Hello World", explanation:"Prints Hello World."},
+{day:"Day 2", code:"#include <iostream>\nusing namespace std;\nint main(){\n int a=5,b=7;\n cout << \"Sum = \" << a+b;\n return 0;\n}", output:"Sum = 12", explanation:"Sum of two numbers."},
+{day:"Day 3", code:"#include <iostream>\nusing namespace std;\nint main(){\n int num=9;\n cout << ((num%2==0)?\"Even\":\"Odd\");\n return 0;\n}", output:"Odd", explanation:"Even or Odd check."},
+{day:"Day 4", code:"#include <iostream>\nusing namespace std;\nint main(){\n int num=5,fact=1;\n for(int i=1;i<=num;i++) fact*=i;\n cout << fact;\n return 0;\n}", output:"120", explanation:"Factorial using loop."},
+{day:"Day 5", code:"#include <iostream>\nusing namespace std;\nint main(){\n int a=0,b=1;\n for(int i=0;i<10;i++){\n  cout << a << \" \";\n  int c=a+b;\n  a=b; b=c;\n }\n return 0;\n}", output:"0 1 1 2 3 5 8 13 21 34", explanation:"Fibonacci first 10 numbers."},
+{day:"Day 6", code:"#include <iostream>\n#include <string>\n#include <algorithm>\nusing namespace std;\nint main(){\n string s=\"Python\";\n reverse(s.begin(),s.end());\n cout << s;\n return 0;\n}", output:"nohtyP", explanation:"Reverse string."},
+{day:"Day 7", code:"#include <iostream>\n#include <string>\nusing namespace std;\nint main(){\n string s=\"Hello World\";\n int count=0;\n for(char c:s) if(string(\"aeiouAEIOU\").find(c)!=string::npos) count++;\n cout << count;\n return 0;\n}", output:"3", explanation:"Count vowels."},
+{day:"Day 8", code:"#include <iostream>\n#include <algorithm>\nusing namespace std;\nint main(){\n int arr[]={4,7,2,9,1};\n cout << *max_element(arr,arr+5);\n return 0;\n}", output:"9", explanation:"Maximum in array."},
+{day:"Day 9", code:"#include <iostream>\n#include <algorithm>\nusing namespace std;\nint main(){\n int arr[]={4,7,2,9,1};\n cout << *min_element(arr,arr+5);\n return 0;\n}", output:"1", explanation:"Minimum in array."},
+{day:"Day 10", code:"#include <iostream>\nusing namespace std;\nint main(){\n int arr[]={1,2,3,4,5},sum=0;\n for(int i:arr) sum+=i;\n cout << sum;\n return 0;\n}", output:"15", explanation:"Sum of array."},
+{day:"Day 11", code:"#include <iostream>\nusing namespace std;\nint main(){\n for(int i=1;i<=5;i++) cout << i*i << \" \";\n return 0;\n}", output:"1 4 9 16 25", explanation:"Squares of first 5 numbers."},
+{day:"Day 12", code:"#include <iostream>\nusing namespace std;\nint main(){\n int a=10,b=5;\n cout << \"Add: \" << a+b << \"\\nSub: \" << a-b << \"\\nMul: \" << a*b << \"\\nDiv: \" << a/b;\n return 0;\n}", output:"Add: 15\nSub: 5\nMul: 50\nDiv: 2", explanation:"Simple calculator."},
+{day:"Day 13", code:"#include <iostream>\nusing namespace std;\nint main(){\n int num=13,prime=1;\n for(int i=2;i<num;i++) if(num%i==0){prime=0;break;}\n cout << (prime?\"Prime\":\"Not Prime\");\n return 0;\n}", output:"Prime", explanation:"Check prime number."},
+{day:"Day 14", code:"#include <iostream>\n#include <vector>\nusing namespace std;\nint main(){\n vector<int> lst;\n for(int i=1;i<=5;i++) lst.push_back(i*i);\n for(int x:lst) cout << x << \" \";\n return 0;\n}", output:"1 4 9 16 25", explanation:"List of squares."},
+{day:"Day 15", code:"#include <iostream>\n#include <vector>\n#include <algorithm>\nusing namespace std;\nint main(){\n vector<int> lst={1,2,3,4,5};\n reverse(lst.begin(),lst.end());\n for(int x:lst) cout << x << \" \";\n return 0;\n}", output:"5 4 3 2 1", explanation:"Reverse list."},
+{day:"Day 16", code:"#include <iostream>\n#include <map>\nusing namespace std;\nint main(){\n map<char,int> d={{'a',1},{'b',2},{'c',3}};\n cout << d['b'];\n return 0;\n}", output:"2", explanation:"Access value by key in map."},
+{day:"Day 17", code:"#include <iostream>\n#include <map>\nusing namespace std;\nint main(){\n map<char,int> d;\n d['a']=1;\n d['b']=2;\n cout << d['a'] << \",\" << d['b'];\n return 0;\n}", output:"1,2", explanation:"Add key-value pair to map."},
+{day:"Day 18", code:"#include <iostream>\n#include <set>\nusing namespace std;\nint main(){\n set<int> s1={1,2,3},s2={2,3,4};\n for(auto x:s1) if(s2.count(x)) cout << x << \" \";\n return 0;\n}", output:"2 3", explanation:"Intersection of two sets."},
+{day:"Day 19", code:"#include <iostream>\n#include <string>\n#include <algorithm>\nusing namespace std;\nint main(){\n string s=\"radar\";\n cout << ((s==string(s.rbegin(),s.rend()))?\"Palindrome\":\"Not Palindrome\");\n return 0;\n}", output:"Palindrome", explanation:"Check palindrome string."},
+{day:"Day 20", code:"#include <iostream>\n#include <sstream>\nusing namespace std;\nint main(){\n string s=\"Hello world from C++\";\n istringstream ss(s);\n string word;\n int count=0;\n while(ss>>word) count++;\n cout << count;\n return 0;\n}", output:"4", explanation:"Count words in string."},
+{day:"Day 21", code:"#include <iostream>\nusing namespace std;\nint lcm(int a,int b){\n int max_ab=max(a,b);\n while(true){\n  if(max_ab%a==0 && max_ab%b==0) return max_ab;\n  max_ab++;\n }\n}\nint main(){\n cout << lcm(4,6);\n return 0;\n}", output:"12", explanation:"Calculate LCM of two numbers."},
+{day:"Day 22", code:"#include <iostream>\nusing namespace std;\nint main(){\n int num=12345,sum=0;\n while(num>0){\n  sum+=num%10;\n  num/=10;\n }\n cout << sum;\n return 0;\n}", output:"15", explanation:"Sum of digits of a number."},
+{day:"Day 23", code:"#include <iostream>\n#include <vector>\nusing namespace std;\nint main(){\n vector<int> lst={1,2,3,4,5,6},evens;\n for(int x:lst) if(x%2==0) evens.push_back(x);\n for(int x:evens) cout << x << \" \";\n return 0;\n}", output:"2 4 6", explanation:"Filter even numbers."},
+{day:"Day 24", code:"#include <iostream>\n#include <string>\nusing namespace std;\nint main(){\n string s=\"hello world\";\n int count=0;\n for(char c:s) if(c=='l') count++;\n cout << count;\n return 0;\n}", output:"3", explanation:"Count character occurrences."},
+{day:"Day 25", code:"#include <iostream>\nusing namespace std;\nint main(){\n int year=2024;\n cout << ((year%4==0 && (year%100!=0 || year%400==0))?\"Leap Year\":\"Not Leap Year\");\n return 0;\n}", output:"Leap Year", explanation:"Check leap year."},
+{day:"Day 26", code:"#include <iostream>\nusing namespace std;\nint main(){\n int num=5;\n for(int i=1;i<=10;i++) cout << num << \" x \" << i << \" = \" << num*i << endl;\n return 0;\n}", output:"5 x 1 = 5 ... 5 x 10 = 50", explanation:"Print multiplication table."},
+{day:"Day 27", code:"#include <iostream>\n#include <vector>\nusing namespace std;\nint main(){\n vector<int> lst1={1,2}, lst2={3,4};\n lst1.insert(lst1.end(), lst2.begin(), lst2.end());\n for(int x:lst1) cout << x << \" \";\n return 0;\n}", output:"1 2 3 4", explanation:"Merge two lists."},
+{day:"Day 28", code:"#include <iostream>\n#include <set>\nusing namespace std;\nint main(){\n int arr[]={1,2,2,3,3,3,4};\n set<int> s(arr,arr+7);\n for(int x:s) cout << x << \" \";\n return 0;\n}", output:"1 2 3 4", explanation:"Remove duplicates."},
+{day:"Day 29", code:"#include <iostream>\nusing namespace std;\nint main(){\n char ch='A';\n cout << int(ch);\n return 0;\n}", output:"65", explanation:"Find ASCII value of character."},
+{day:"Day 30", code:"#include <iostream>\nusing namespace std;\nint main(){\n double c=37,f;\n f=(c*9/5)+32;\n cout << f;\n return 0;\n}", output:"98.6", explanation:"Convert Celsius to Fahrenheit."},
+{day:"Day 31", code:"#include <iostream>\nusing namespace std;\nint main(){\n double p=1000,r=5,t=2,si;\n si=(p*r*t)/100;\n cout << si;\n return 0;\n}", output:"100", explanation:"Calculate simple interest."},
+{day:"Day 32", code:"#include <iostream>\n#include <sstream>\n#include <vector>\nusing namespace std;\nint main(){\n string s=\"C++ is fun\";\n istringstream ss(s);\n vector<string> words;\n string w;\n while(ss>>w) words.insert(words.begin(),w);\n for(string x:words) cout << x << \" \";\n return 0;\n}", output:"fun is C++", explanation:"Reverse words in a sentence."},
+{day:"Day 33", code:"#include <iostream>\n#include <cmath>\nusing namespace std;\nint main(){\n int num=153,sum=0,temp=num;\n while(temp>0){\n  int digit=temp%10;\n  sum+=pow(digit,3);\n  temp/=10;\n }\n cout << ((sum==num)?\"Armstrong\":\"Not Armstrong\");\n return 0;\n}", output:"Armstrong", explanation:"Check Armstrong number."},
+{day:"Day 34", code:"#include <iostream>\n#include <cstdlib>\n#include <ctime>\nusing namespace std;\nint main(){\n srand(time(0));\n cout << rand()%100+1;\n return 0;\n}", output:"(random number 1-100)", explanation:"Generate random number."},
+{day:"Day 35", code:"#include <iostream>\n#include <thread>\n#include <chrono>\nusing namespace std;\nint main(){\n for(int i=5;i>0;i--){\n  cout << i << endl;\n  this_thread::sleep_for(chrono::seconds(1));\n }\n cout << \"Go!\";\n return 0;\n}", output:"5 4 3 2 1 Go!", explanation:"Countdown timer."},
+{day:"Day 36", code:"#include <iostream>\n#include <string>\nusing namespace std;\nint main(){\n string name;\n cout << \"Enter name: \";\n cin >> name;\n cout << \"Hello \" << name;\n return 0;\n}", output:"Enter name: Alice\nHello Alice", explanation:"Read input and print greeting."},
+{day:"Day 37", code:"#include <iostream>\n#include <fstream>\nusing namespace std;\nint main(){\n ofstream f(\"test.txt\");\n f << \"Hello World\";\n f.close();\n return 0;\n}", output:"(Writes 'Hello World' to file)", explanation:"Write string to file."},
+{day:"Day 38", code:"#include <iostream>\n#include <fstream>\n#include <string>\nusing namespace std;\nint main(){\n ifstream f(\"test.txt\");\n string line;\n getline(f,line);\n cout << line;\n f.close();\n return 0;\n}", output:"Hello World", explanation:"Read content from file."},
+{day:"Day 39", code:"#include <iostream>\nusing namespace std;\nint main(){\n int n=10,sum=0;\n for(int i=1;i<=n;i++) sum+=i;\n cout << sum;\n return 0;\n}", output:"55", explanation:"Sum of first n natural numbers."},
+{day:"Day 40", code:"#include <iostream>\n#include <string>\nusing namespace std;\nint main(){\n string s=\"Hello World\";\n int count=0;\n for(char c:s) if(isupper(c)) count++;\n cout << count;\n return 0;\n}", output:"2", explanation:"Count uppercase letters."},
+{day:"Day 41", code:"#include <iostream>\nusing namespace std;\nint main(){\n int a=5,b=10;\n swap(a,b);\n cout << a << \" \" << b;\n return 0;\n}", output:"10 5", explanation:"Swap two numbers."},
+{day:"Day 42", code:"#include <iostream>\nusing namespace std;\nint main(){\n for(int num=2;num<=20;num++){\n  bool prime=true;\n  for(int i=2;i<num;i++) if(num%i==0){prime=false;break;}\n  if(prime) cout << num << \" \";\n }\n return 0;\n}", output:"2 3 5 7 11 13 17 19", explanation:"Print prime numbers up to 20."},
+{day:"Day 43", code:"#include <iostream>\n#include <vector>\n#include <string>\nusing namespace std;\nint main(){\n vector<string> lst={\"C++\",\"Fun\"};\n for(string x:lst) cout << x << \" \";\n return 0;\n}", output:"C++ Fun", explanation:"Convert list to string."},
+{day:"Day 44", code:"#include <iostream>\n#include <cmath>\nusing namespace std;\nint main(){\n cout << pow(2,5);\n return 0;\n}", output:"32", explanation:"Calculate power of a number."},
+{day:"Day 45", code:"#include <iostream>\nusing namespace std;\ndouble c_to_f(double c){ return (c*9/5)+32;}\nint main(){\n cout << c_to_f(0);\n return 0;\n}", output:"32", explanation:"Function converts Celsius to Fahrenheit."},
+{day:"Day 46", code:"#include <iostream>\n#include <vector>\nusing namespace std;\nint main(){\n vector<int> lst={1,2,3,4,5};\n int even=0,odd=0;\n for(int x:lst){ if(x%2==0) even++; else odd++;}\n cout << \"Even: \" << even << \" Odd: \" << odd;\n return 0;\n}", output:"Even: 2 Odd: 3", explanation:"Count even and odd numbers."},
+{day:"Day 47", code:"#include <iostream>\n#include <vector>\nusing namespace std;\nint main(){\n vector<int> multiples;\n for(int i=1;i<=10;i++) multiples.push_back(i*3);\n for(int x:multiples) cout << x << \" \";\n return 0;\n}", output:"3 6 9 12 15 18 21 24 27 30", explanation:"Generate multiples of 3."},
+{day:"Day 48", code:"#include <iostream>\n#include <cstdlib>\n#include <ctime>\nusing namespace std;\nint main(){\n srand(time(0));\n int n=rand()%5+1,guess;\n cout << \"Guess 1-5: \";\n cin >> guess;\n cout << ((guess==n)?\"Correct!\":\"Wrong, was \"+to_string(n));\n return 0;\n}", output:"(depends on input/random)", explanation:"Simple guessing game."},
+{day:"Day 49", code:"#include <iostream>\n#include <iomanip>\nusing namespace std;\nint main(){\n int days=31;\n cout << \"August 2025\\n\";\n cout << \"Sun Mon Tue Wed Thu Fri Sat\\n\";\n for(int i=1;i<=days;i++) cout << setw(3) << i << \" \";\n return 0;\n}", output:"(August 2025 calendar)", explanation:"Print calendar for a month."},
+{day:"Day 50", code:"#include <iostream>\nusing namespace std;\ndouble calc(double a,double b,char op){\n if(op=='+') return a+b;\n else if(op=='-') return a-b;\n else if(op=='*') return a*b;\n else if(op=='/') return a/b;\n return 0;\n}\nint main(){\n cout << calc(10,5,'*');\n return 0;\n}", output:"50", explanation:"Mini calculator function."}
+
+];
+
+let index = 0;
+
+function showProgram(i){
+ document.getElementById("codeBox").innerText = cppPrograms[i].code;
+ document.getElementById("outputBox").innerText = "Expected Output:\n" + cppPrograms[i].output;
+ document.getElementById("explanationBox").innerText = "Explanation:\n" + cppPrograms[i].explanation;
+}
+
+function nextDay(){
+ index = (index+1) % cppPrograms.length;
+ showProgram(index);
+}
+
+// Show first program
+showProgram(0);
+</script>
+</body>
+</html>

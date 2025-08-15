@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Practice - Levels 1 to 10</title>
+<style>
+body {
+    background-color: #121212;
+    color: #fff;
+    font-family: monospace;
+    text-align: center;
+    padding: 50px;
+}
+h1 {
+    color: #ccc;
+    margin-bottom: 20px;
+}
+#levelTitle {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+#readingText {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 150px;
+    text-align: justify;
+    margin-bottom: 20px;
+    width: 90%;
+    max-width: 800px;
+}
+#timer {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+button {
+    background: linear-gradient(145deg, #1e1e1e, #2b2b2b);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+#readingText {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 150px;
+    text-align: justify;
+    margin-bottom: 20px;
+    width: 90%;
+    max-width: 800px;
+    font-size: 22px; /* Increased font size */
+    line-height: 1.8; /* Better spacing */
+}
+
+button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(145deg, #2b2b2b, #3a3a3a);
+}
+</style>
+</head>
+<body>
+
+<h1>Reading Practice - Levels 1 to 10</h1>
+<div id="levelTitle">Level 1</div>
+<div id="readingText">Loading text...</div>
+<div id="timer">Time Left: 0 sec</div>
+<button onclick="nextLevel()">Next Level</button>
+
+<script>
+const readingLevels = [
+{level:"Level 1", words:50, time:60, text:`Reading helps to improve vocabulary and comprehension. Starting with simple texts allows learners to practice understanding sentences and main ideas. Short stories, paragraphs, and daily life topics are ideal for beginners. Regular reading increases focus and attention. Highlighting key words, repeating reading sessions, and discussing content improves retention. Engaging with simple material prepares readers for more complex texts gradually.`},
+
+{level:"Level 2", words:80, time:90, text:`Level 2 reading focuses on slightly longer texts and simple narratives. Learners read short stories, descriptive paragraphs, and practical content. The goal is to improve comprehension, identify main ideas, and learn new vocabulary. Regular reading enhances concentration and memory. Discussing content, summarizing paragraphs, and answering questions help reinforce understanding. Gradually, learners become comfortable with reading more sentences and understanding context.`},
+
+{level:"Level 3", words:100, time:120, text:`At Level 3, reading passages increase in length and complexity. Topics may include simple scientific concepts, social events, or short essays. Learners practice identifying supporting details, making inferences, and connecting ideas. Techniques like underlining important words, summarizing, and predicting outcomes improve comprehension. Regular practice builds confidence and prepares learners for academic and practical reading.`},
+
+{level:"Level 4", words:120, time:150, text:`Level 4 reading introduces more detailed passages, including explanatory texts, short articles, and descriptive essays. Learners are encouraged to pay attention to structure, cause and effect, and main arguments. Vocabulary expansion and understanding complex sentences are emphasized. Practicing regularly with questions and summaries improves reading speed and comprehension skills.`},
+
+{level:"Level 5", words:150, time:180, text:`Scientific and technology articles expand knowledge and enhance critical thinking. For instance, when reading about renewable energy, you encounter solar panels, wind turbines, and hydropower plants. Each energy source has specific advantages and disadvantages, including efficiency, cost, and environmental impact. Solar energy is abundant but depends on sunlight; wind energy is clean but varies with weather; hydropower is efficient but can affect ecosystems. Understanding these texts requires attention to technical vocabulary, logical reasoning, and complex sentence structures. Readers are encouraged to highlight key points, note unfamiliar words, and summarize the main ideas. Regular practice strengthens comprehension, analytical skills, and vocabulary, helping students prepare for more challenging scientific readings. Moreover, discussing these topics or writing short reflections deepens understanding, improves retention, and fosters a habit of active learning. Engaging with such material consistently develops both cognitive and language skills over time.`},
+
+{level:"Level 6", words:200, time:240, text:`Climate change is one of the most pressing issues of the 21st century. Rising global temperatures, melting glaciers, and increasing frequency of extreme weather events highlight the urgency for action. Scientists emphasize the importance of reducing greenhouse gas emissions, conserving forests, and promoting sustainable energy practices. Renewable energy sources such as solar, wind, and geothermal provide cleaner alternatives to fossil fuels. Additionally, individuals can contribute by minimizing waste, recycling, and using energy-efficient appliances. Governments and organizations worldwide are implementing policies to address environmental challenges, while researchers continue to develop innovative solutions. Understanding complex climate reports, analyzing data trends, and interpreting graphical information enhance critical thinking skills. Engaging with such material not only improves reading comprehension but also fosters awareness of global issues, encouraging responsible decision-making and proactive participation in sustainability efforts.`},
+
+{level:"Level 7", words:250, time:300, text:`Artificial intelligence is transforming industries worldwide. AI applications include self-driving cars, virtual assistants, healthcare diagnostics, and data analysis. By learning patterns from large datasets, AI systems can predict trends, automate processes, and assist decision-making. Ethical considerations, such as privacy, bias, and accountability, are essential when implementing AI solutions. For example, healthcare AI can analyze medical records to recommend treatments, but data privacy must be ensured. Students reading about AI learn technical terms, understand cause-effect relationships, and interpret examples critically. Engaging with such content enhances analytical thinking, problem-solving skills, and the ability to evaluate technology responsibly. Summarizing, discussing, and applying knowledge from AI articles strengthen comprehension and prepare readers for advanced scientific and technical materials.`},
+
+{level:"Level 8", words:300, time:360, text:`Space exploration has expanded human understanding of the universe. Satellites, telescopes, and interplanetary missions provide data on planets, stars, and cosmic phenomena. Advanced space programs aim to study climate change on Earth, search for extraterrestrial life, and develop technologies for long-duration space travel. Reading about these topics involves grasping complex scientific terminology, interpreting diagrams, and analyzing experimental results. Learners are encouraged to compare findings, question assumptions, and draw conclusions from multiple sources. Regular engagement with such material builds critical thinking, enhances scientific literacy, and encourages curiosity. Writing reflections, discussing with peers, and solving related problems reinforce understanding. Consistent practice at this level equips readers to comprehend highly technical and research-oriented articles.`},
+
+{level:"Level 9", words:350, time:420, text:`Genetic engineering is a rapidly advancing field in biology with potential to revolutionize medicine, agriculture, and biotechnology. Techniques like CRISPR-Cas9 enable precise modification of DNA sequences, offering possibilities for disease treatment and crop improvement. Reading scientific articles in this field requires understanding complex methodologies, analyzing experimental data, and evaluating ethical considerations. Researchers and learners must assess risks, benefits, and long-term impacts of genetic modifications. Critical reading skills include identifying hypotheses, interpreting statistical results, and drawing evidence-based conclusions. Practicing with detailed scientific papers enhances analytical thinking, problem-solving abilities, and scientific literacy. Discussing case studies, summarizing research, and reflecting on societal implications strengthens comprehension. Engaging with genetic engineering texts prepares readers for advanced academic studies and informed participation in scientific discourse.`},
+
+{level:"Level 10", words:400, time:480, text:`Quantum physics explores the fundamental behavior of matter and energy at microscopic scales. Concepts like wave-particle duality, quantum entanglement, superposition, and uncertainty principles challenge classical intuition. Reading advanced quantum physics materials requires attention to mathematical formulations, experimental evidence, and theoretical models. Students and researchers analyze complex problems, evaluate experimental setups, and synthesize information from multiple studies. Critical comprehension involves understanding abstract concepts, identifying logical arguments, and connecting theory with empirical data. Regular practice with such dense material enhances high-level analytical skills, problem-solving abilities, and scientific reasoning. Summarizing key ideas, discussing implications, and exploring applications in technology and research deepen understanding. Engaging consistently with quantum physics literature develops expertise, promotes cognitive growth, and prepares readers for cutting-edge academic and professional challenges.`}
+];
+
+let currentLevel = 0;
+
+function showLevel() {
+    const levelData = readingLevels[currentLevel];
+    document.getElementById("levelTitle").innerText = levelData.level;
+    document.getElementById("readingText").innerText = levelData.text;
+    startTimer(levelData.time);
+}
+
+function nextLevel() {
+    if(currentLevel < readingLevels.length-1){
+        currentLevel++;
+        showLevel();
+    }
+}
+
+function startTimer(seconds){
+    clearInterval(window.timerInterval);
+    let timeLeft = seconds;
+    const timerBox = document.getElementById("timer");
+    timerBox.innerText = `Time Left: ${timeLeft} sec`;
+    window.timerInterval = setInterval(()=>{
+        timeLeft--;
+        timerBox.innerText = `Time Left: ${timeLeft} sec`;
+        if(timeLeft<=0){
+            clearInterval(window.timerInterval);
+            timerBox.innerText = "Time's up!";
+        }
+    },1000);
+}
+
+// Initial load
+showLevel();
+</script>
+
+</body>
+</html>

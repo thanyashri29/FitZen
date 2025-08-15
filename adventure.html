@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adventure Ideas</title>
+<link rel="stylesheet" href="adventure.css">
+</head>
+<body>
+
+<h1>Adventure Ideas</h1>
+
+<!-- Adventure Categories -->
+<select id="categorySelect">
+    <option value="outdoor">Outdoor Adventures</option>
+    <option value="water">Water Adventures</option>
+    <option value="mountain">Mountain Adventures</option>
+</select>
+
+<div id="adventureBox">Click the button to get an adventure idea!</div>
+
+<button onclick="nextAdventure()">Next Adventure</button>
+
+<script>
+const adventures = {
+    outdoor: [
+        "Go hiking in a nearby forest.",
+        "Try mountain biking on a trail.",
+        "Camp under the stars for a night."
+    ],
+    water: [
+        "Go kayaking on a river.",
+        "Try snorkeling at a local lake.",
+        "Go surfing at the beach."
+    ],
+    mountain: [
+        "Climb a local peak.",
+        "Go rock climbing with friends.",
+        "Try paragliding over a valley."
+    ]
+};
+
+function nextAdventure() {
+    const category = document.getElementById('categorySelect').value;
+    const ideas = adventures[category];
+    const randomIdea = ideas[Math.floor(Math.random() * ideas.length)];
+    document.getElementById('adventureBox').innerText = randomIdea;
+}
+</script>
+</body>
+</html>

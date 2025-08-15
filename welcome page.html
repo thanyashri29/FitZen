@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signup/Login Page</title><!-- Firebase App (core SDK) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<!-- Firebase Auth -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #121212, #1e1e1e);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    background: #1c1c1c;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    width: 400px;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ccc;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], select {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background: #1e1e1e;
+    color: white;
+    font-size: 16px;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, select:focus {
+    border: 2px solid #888;
+    box-shadow: 0 0 8px #888;
+    outline: none;
+}
+
+input::placeholder {
+    color: #aaa;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #2b2b2b, #3a3a3a);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(145deg, #3a3a3a, #4a4a4a);
+}
+
+.show-pass {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+    font-size: 14px;
+}
+.show-pass:hover { color: #fff; }
+
+.field-container {
+    position: relative;
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Signup / Login</h2>
+    <form id="loginForm">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <input type="number" placeholder="Phone Number" required>
+        <input type="number" placeholder="Age" min="1" max="120" required>
+        <div class="field-container">
+            <input type="password" placeholder="Password" id="password" required>
+            <span class="show-pass" onclick="togglePassword()">Show</span>
+        </div>
+        <select required>
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+function togglePassword() {
+    const pass = document.getElementById('password');
+    const btn = document.querySelector('.show-pass');
+    if(pass.type === 'password') {
+        pass.type = 'text';
+        btn.textContent = 'Hide';
+    } else {
+        pass.type = 'password';
+        btn.textContent = 'Show';
+    }
+}
+
+// Form submit redirect
+document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault(); // prevent actual form submission
+    alert("Login Successful! Redirecting...");
+    window.location.href = "homepage.html"; // change to your homepage
+});
+
+ 
+</script>
+
+</body>
+</html>

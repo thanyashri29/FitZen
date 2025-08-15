@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitness Challenges</title>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #000000, #1c1c1c);
+        color: #e5e5e5;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .container {
+        background: rgba(30, 30, 30, 0.9);
+        padding: 30px;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h1, h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #444, #222);
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    button:hover {
+        background: linear-gradient(90deg, #666, #333);
+        transform: scale(1.02);
+    }
+
+    .hidden { display: none; }
+
+    #timer {
+        font-size: 2rem;
+        text-align: center;
+        margin: 20px 0;
+        font-weight: bold;
+        animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+        from { color: #aaa; }
+        to { color: #fff; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🏋 Fitness Challenges</h1>
+
+    <div id="challengeList">
+        <button onclick="selectChallenge('Jogging')">🏃 Jogging</button>
+        <button onclick="selectChallenge('Push-ups')">💪 Push-ups</button>
+        <button onclick="selectChallenge('Yoga')">🧘 Yoga</button>
+        <button onclick="selectChallenge('Plank')">🪵 Plank</button>
+        <button onclick="selectChallenge('Skipping')">🤾 Skipping</button>
+    </div>
+
+    <div id="timerSetup" class="hidden">
+        <h2 id="selectedChallenge"></h2>
+        <label>⏳ Set Time (HH:MM:SS):</label>
+        <input type="time" id="timeInput" step="1" value="00:05:00">
+        <button onclick="startTimer()">Start</button>
+        <button onclick="backToList()">⬅ Back</button>
+    </div>
+
+    <div id="runningTimer" class="hidden">
+        <h2 id="runningTitle"></h2>
+        <div id="timer">00:00:00</div>
+        <button id="startBtn" onclick="resumeTimer()">▶ Start</button>
+        <button id="stopBtn" onclick="pauseTimer()">⏸ Stop</button>
+        <button onclick="backToList()">⬅ Back</button>
+    </div>
+</div>
+
+<audio id="alarmSound">
+    <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav">
+</audio>
+
+<script>
+let timerInterval;
+let totalSeconds;
+let paused = false;
+
+function selectChallenge(name) {
+    document.getElementById("challengeList").classList.add("hidden");
+    document.getElementById("timerSetup").classList.remove("hidden");
+    document.getElementById("selectedChallenge").textContent = "Selected: " + name;
+    document.getElementById("runningTitle").textContent = name;
+}
+
+function startTimer() {
+    let timeParts = document.getElementById("timeInput").value.split(":");
+    let hours = parseInt(timeParts[0]);
+    let minutes = parseInt(timeParts[1]);
+    let seconds = parseInt(timeParts[2]);
+    totalSeconds = hours * 3600 + minutes * 60 + seconds;
+
+    document.getElementById("timerSetup").classList.add("hidden");
+    document.getElementById("runningTimer").classList.remove("hidden");
+
+    paused = false;
+    runTimer();
+}
+
+function runTimer() {
+    clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        if (!paused) {
+            totalSeconds--;
+            updateTimerDisplay();
+            if (totalSeconds <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById("timer").textContent = "Time's up!";
+                document.getElementById("alarmSound").play();
+            }
+        }
+    }, 1000);
+    updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+    let h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+    let m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+    let s = String(totalSeconds % 60).padStart(2, '0');
+    document.getElementById("timer").textContent = `${h}:${m}:${s}`;
+}
+
+function pauseTimer() {
+    paused = true;
+}
+
+function resumeTimer() {
+    paused = false;
+}
+
+function backToList() {
+    clearInterval(timerInterval);
+    document.getElementById("runningTimer").classList.add("hidden");
+    document.getElementById("timerSetup").classList.add("hidden");
+    document.getElementById("challengeList").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>

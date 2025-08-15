@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Library</title>
+<style>
+body {
+    background-color: #121212;
+    color: #eee;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+    transition: background 0.5s ease;
+}
+
+h1 {
+    color: #ccc;
+    animation: fadeIn 1s ease-in-out;
+}
+
+#categories, #songList, #songDetails {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px;
+    text-align: left;
+    background: #1e1e1e;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+button.category-btn, button.song-btn {
+    background: linear-gradient(145deg, #2b2b2b, #3a3a3a);
+    color: #fff;
+    border: none;
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: transform 0.3s, background 0.3s;
+}
+
+button.category-btn:hover, button.song-btn:hover {
+    transform: scale(1.1);
+    background: linear-gradient(145deg, #3a3a3a, #4a4a4a);
+}
+
+.song-item {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.song-item:hover {
+    background: #333;
+    transform: scale(1.02);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<h1>Music Library</h1>
+
+<div id="categories"></div>
+<div id="songList"></div>
+<div id="songDetails"></div>
+
+<script>
+// Categories Array
+const categories = ["Pop", "Rock", "Jazz", "Classical", "Hip-Hop"];
+
+// Songs Array
+const songs = {
+    "Pop": [
+        { title: "Blinding Lights", artist: "The Weeknd", album: "After Hours" },
+        { title: "Levitating", artist: "Dua Lipa", album: "Future Nostalgia" }
+    ],
+    "Rock": [
+        { title: "Bohemian Rhapsody", artist: "Queen", album: "A Night at the Opera" },
+        { title: "Stairway to Heaven", artist: "Led Zeppelin", album: "Untitled" }
+    ],
+    "Jazz": [
+        { title: "So What", artist: "Miles Davis", album: "Kind of Blue" },
+        { title: "Take Five", artist: "Dave Brubeck", album: "Time Out" }
+    ],
+    "Classical": [
+        { title: "Moonlight Sonata", artist: "Beethoven", album: "Piano Sonata No.14" },
+        { title: "Canon in D", artist: "Pachelbel", album: "Canon & Gigue" }
+    ],
+    "Hip-Hop": [
+        { title: "Sicko Mode", artist: "Travis Scott", album: "Astroworld" },
+        { title: "God's Plan", artist: "Drake", album: "Scorpion" }
+    ]
+};
+
+// Display categories
+const categoryDiv = document.getElementById("categories");
+categories.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.textContent = cat;
+    btn.className = "category-btn";
+    btn.onclick = () => showSongs(cat);
+    categoryDiv.appendChild(btn);
+});
+
+// Display songs of selected category
+function showSongs(category) {
+    const songDiv = document.getElementById("songList");
+    songDiv.innerHTML = `<h3>${category} Songs:</h3>`;
+    songs[category].forEach(song => {
+        const div = document.createElement("div");
+        div.className = "song-item";
+        div.textContent = song.title;
+        div.onclick = () => showDetails(song);
+        songDiv.appendChild(div);
+    });
+    document.getElementById("songDetails").innerHTML = "";
+}
+
+// Show song details
+function showDetails(song) {
+    const detailsDiv = document.getElementById("songDetails");
+    detailsDiv.innerHTML = `
+        <h3>${song.title}</h3>
+        <p><strong>Artist:</strong> ${song.artist}</p>
+        <p><strong>Album:</strong> ${song.album}</p>
+    `;
+}
+</script>
+</body>
+</html>

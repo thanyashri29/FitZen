@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python 50-Day Challenge</title>
+<style>
+body {
+    background-color: #121212;
+    color: white;
+    font-family: monospace;
+    text-align: center;
+    padding: 50px;
+}
+h1 {
+    color: #ccc;
+    animation: fadeIn 0.8s ease-in-out;
+}
+#codeBox, #outputBox, #explanationBox {
+    margin-top: 20px;
+    font-size: 16px;
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 120px;
+    display: inline-block;
+    white-space: pre-wrap;
+    animation: fadeIn 0.8s ease-in-out;
+    text-align: left;
+    width: 90%;
+    max-width: 800px;
+}
+button {
+    background: linear-gradient(145deg, #1e1e1e, #2b2b2b);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+button:hover {
+    transform: scale(1.1);
+    background: linear-gradient(145deg, #2b2b2b, #3a3a3a);
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<h1>Python 50-Day Coding Challenge</h1>
+
+<div id="codeBox">Loading code...</div>
+<div id="outputBox">Expected Output...</div>
+<div id="explanationBox">Explanation...</div><br>
+
+<button onclick="nextDay()">Next Program</button>
+<a href="coding.html"><button>Back to Languages</button></a>
+
+<script>
+const pythonPrograms = [
+{day:"Day 1", code:`# Day 1: Hello World\nprint("Hello World")`, output:`Hello World`, explanation:`Prints Hello World using print() function.`},
+{day:"Day 2", code:`# Day 2: Sum of Two Numbers\na = 5\nb = 7\nprint("Sum =", a+b)`, output:`Sum = 12`, explanation:`Adds two numbers and prints the sum.`},
+{day:"Day 3", code:`# Day 3: Even or Odd\nnum = 9\nif num%2==0:\n    print("Even")\nelse:\n    print("Odd")`, output:`Odd`, explanation:`Checks if a number is even or odd.`},
+{day:"Day 4", code:`# Day 4: Factorial Using Loop\nnum=5\nfact=1\nfor i in range(1,num+1):\n    fact *= i\nprint(fact)`, output:`120`, explanation:`Calculates factorial using a for loop.`},
+{day:"Day 5", code:`# Day 5: Fibonacci Series (first 10 numbers)\na,b=0,1\nfor _ in range(10):\n    print(a,end=' ')\n    a,b = b,a+b`, output:`0 1 1 2 3 5 8 13 21 34`, explanation:`Prints first 10 Fibonacci numbers.`},
+{day:"Day 6", code:`# Day 6: Reverse a String\ns="Python"\nprint(s[::-1])`, output:`nohtyP`, explanation:`Uses slicing to reverse a string.`},
+{day:"Day 7", code:`# Day 7: Count Vowels\ns="Hello World"\nvowels="aeiouAEIOU"\ncount=sum(1 for c in s if c in vowels)\nprint(count)`, output:`3`, explanation:`Counts number of vowels in a string.`},
+{day:"Day 8", code:`# Day 8: Maximum in List\nlst=[4,7,2,9,1]\nprint(max(lst))`, output:`9`, explanation:`Finds maximum number in a list.`},
+{day:"Day 9", code:`# Day 9: Minimum in List\nlst=[4,7,2,9,1]\nprint(min(lst))`, output:`1`, explanation:`Finds minimum number in a list.`},
+{day:"Day 10", code:`# Day 10: Sum of List\nlst=[1,2,3,4,5]\nprint(sum(lst))`, output:`15`, explanation:`Calculates sum of all numbers in a list.`},
+{day:"Day 11", code:`# Day 11: Square of Numbers\nfor i in range(1,6):\n    print(i*i,end=' ')`, output:`1 4 9 16 25`, explanation:`Prints squares of first 5 numbers.`},
+{day:"Day 12", code:`# Day 12: Simple Calculator\na=10\nb=5\nprint("Add:",a+b,"\nSub:",a-b,"\nMul:",a*b,"\nDiv:",a/b)`, output:`Add: 15\nSub: 5\nMul: 50\nDiv: 2.0`, explanation:`Performs basic arithmetic operations.`},
+{day:"Day 13", code:`# Day 13: Check Prime\nnum=13\nisPrime=True\nfor i in range(2,num):\n    if num%i==0:\n        isPrime=False\n        break\nprint("Prime" if isPrime else "Not Prime")`, output:`Prime`, explanation:`Checks if a number is prime.`},
+{day:"Day 14", code:`# Day 14: List Comprehension\nlst=[i*i for i in range(1,6)]\nprint(lst)`, output:`[1, 4, 9, 16, 25]`, explanation:`Creates a list of squares using list comprehension.`},
+{day:"Day 15", code:`# Day 15: Reverse a List\nlst=[1,2,3,4,5]\nlst.reverse()\nprint(lst)`, output:`[5,4,3,2,1]`, explanation:`Reverses the list using reverse() method.`},
+{day:"Day 16", code:`# Day 16: Dictionary Example\nd={'a':1,'b':2,'c':3}\nprint(d['b'])`, output:`2`, explanation:`Accesses value by key in a dictionary.`},
+{day:"Day 17", code:`# Day 17: Update Dictionary\nd={'a':1}\nd['b']=2\nprint(d)`, output:`{'a': 1, 'b': 2}`, explanation:`Adds a new key-value pair in dictionary.`},
+{day:"Day 18", code:`# Day 18: Set Operations\ns1={1,2,3}\ns2={2,3,4}\nprint(s1&s2)`, output:`{2,3}`, explanation:`Finds intersection of two sets.`},
+{day:"Day 19", code:`# Day 19: Check Palindrome\ns="radar"\nprint("Palindrome" if s==s[::-1] else "Not Palindrome")`, output:`Palindrome`, explanation:`Checks if a string is palindrome.`},
+{day:"Day 20", code:`# Day 20: Count Words\ns="Hello world from Python"\nprint(len(s.split()))`, output:`4`, explanation:`Counts number of words in a string.`},
+{day:"Day 21", code:`# Day 21: Find LCM of two numbers\ndef lcm(a,b):\n    max_ab = max(a,b)\n    while True:\n        if max_ab%a==0 and max_ab%b==0:\n            return max_ab\n        max_ab+=1\nprint(lcm(4,6))`, output:`12`, explanation:`Calculates LCM by checking multiples.`},
+{day:"Day 22", code:`# Day 22: Sum of Digits\nnum=12345\nsum=0\nfor digit in str(num):\n    sum+=int(digit)\nprint(sum)`, output:`15`, explanation:`Converts number to string, sums each digit.`},
+{day:"Day 23", code:`# Day 23: List Filter Even Numbers\nlst=[1,2,3,4,5,6]\nevens=[x for x in lst if x%2==0]\nprint(evens)`, output:`[2,4,6]`, explanation:`Filters even numbers using list comprehension.`},
+{day:"Day 24", code:`# Day 24: Count Character Occurrences\ns="hello world"\nprint(s.count('l'))`, output:`3`, explanation:`Counts how many times 'l' appears.`},
+{day:"Day 25", code:`# Day 25: Check Leap Year\nyear=2024\nprint("Leap Year" if (year%4==0 and (year%100!=0 or year%400==0)) else "Not Leap Year")`, output:`Leap Year`, explanation:`Checks leap year conditions.`},
+{day:"Day 26", code:`# Day 26: Print Multiplication Table\nnum=5\nfor i in range(1,11):\n    print(f"{num} x {i} = {num*i}")`, output:`5 x 1 = 5 ... 5 x 10 = 50`, explanation:`Prints multiplication table of a number.`},
+{day:"Day 27", code:`# Day 27: Merge Two Lists\nlst1=[1,2]\nlst2=[3,4]\nmerged=lst1+lst2\nprint(merged)`, output:`[1,2,3,4]`, explanation:`Merges two lists using + operator.`},
+{day:"Day 28", code:`# Day 28: Remove Duplicates\nlst=[1,2,2,3,3,3,4]\nprint(list(set(lst)))`, output:`[1,2,3,4]`, explanation:`Converts list to set to remove duplicates.`},
+{day:"Day 29", code:`# Day 29: Find ASCII Value\nch='A'\nprint(ord(ch))`, output:`65`, explanation:`Uses ord() to get ASCII value.`},
+{day:"Day 30", code:`# Day 30: Convert Celsius to Fahrenheit\nc=37\nf=(c*9/5)+32\nprint(f)`, output:`98.6`, explanation:`Converts Celsius to Fahrenheit.`},
+{day:"Day 31", code:`# Day 31: Simple Interest\np=1000\nr=5\nt=2\nsi=(p*r*t)/100\nprint(si)`, output:`100.0`, explanation:`Calculates simple interest.`},
+{day:"Day 32", code:`# Day 32: Reverse Words in Sentence\ns="Python is fun"\nprint(' '.join(s.split()[::-1]))`, output:`fun is Python`, explanation:`Reverses the order of words.`},
+{day:"Day 33", code:`# Day 33: Check Armstrong Number\nnum=153\nsum=0\nfor digit in str(num):\n    sum+=int(digit)**3\nprint("Armstrong" if sum==num else "Not Armstrong")`, output:`Armstrong`, explanation:`Checks if number equals sum of cubes of digits.`},
+{day:"Day 34", code:`# Day 34: Generate Random Number\nimport random\nprint(random.randint(1,100))`, output:`(random number 1-100)`, explanation:`Generates a random integer.`},
+{day:"Day 35", code:`# Day 35: Countdown Timer\nimport time\nfor i in range(5,0,-1):\n    print(i)\n    time.sleep(1)\nprint("Go!")`, output:`5 4 3 2 1 Go!`, explanation:`Counts down from 5 with 1-second interval.`},
+{day:"Day 36", code:`# Day 36: Read Input\nname=input("Enter name: ")\nprint("Hello",name)`, output:`Enter name: Alice\nHello Alice`, explanation:`Reads input and prints greeting.`},
+{day:"Day 37", code:`# Day 37: Write to File\nwith open("test.txt","w") as f:\n    f.write("Hello World")`, output:`(Writes "Hello World" to file)`, explanation:`Writes string to a text file.`},
+{day:"Day 38", code:`# Day 38: Read from File\nwith open("test.txt","r") as f:\n    print(f.read())`, output:`Hello World`, explanation:`Reads content of file and prints it.`},
+{day:"Day 39", code:`# Day 39: Sum of Natural Numbers\nn=10\nprint(sum(range(1,n+1)))`, output:`55`, explanation:`Calculates sum of first 10 natural numbers.`},
+{day:"Day 40", code:`# Day 40: Count Uppercase Letters\ns="Hello World"\nprint(sum(1 for c in s if c.isupper()))`, output:`2`, explanation:`Counts uppercase letters in string.`},
+{day:"Day 41", code:`# Day 41: Swap Two Numbers\na=5\nb=10\na,b=b,a\nprint(a,b)`, output:`10 5`, explanation:`Swaps values using tuple unpacking.`},
+{day:"Day 42", code:`# Day 42: Print Prime Numbers up to 20\nfor num in range(2,21):\n    if all(num%i!=0 for i in range(2,num)):\n        print(num,end=' ')`, output:`2 3 5 7 11 13 17 19`, explanation:`Prints primes using for loop and all().`},
+{day:"Day 43", code:`# Day 43: Convert List to String\nlst=['Python','Fun']\nprint(' '.join(lst))`, output:`Python Fun`, explanation:`Joins list elements into a string.`},
+{day:"Day 44", code:`# Day 44: Calculate Power\nprint(pow(2,5))`, output:`32`, explanation:`Calculates 2 to the power of 5.`},
+{day:"Day 45", code:`# Day 45: Temperature Conversion Function\ndef c_to_f(c):\n    return (c*9/5)+32\nprint(c_to_f(0))`, output:`32.0`, explanation:`Function converts Celsius to Fahrenheit.`},
+{day:"Day 46", code:`# Day 46: Count Even and Odd\nlst=[1,2,3,4,5]\neven=sum(1 for x in lst if x%2==0)\nodd=sum(1 for x in lst if x%2!=0)\nprint("Even:",even,"Odd:",odd)`, output:`Even: 2 Odd: 3`, explanation:`Counts even and odd numbers in list.`},
+{day:"Day 47", code:`# Day 47: Generate Multiples of 3\nprint([i*3 for i in range(1,11)])`, output:`[3,6,9,12,15,18,21,24,27,30]`, explanation:`List of first 10 multiples of 3.`},
+{day:"Day 48", code:`# Day 48: Simple Guessing Game\nimport random\nn=random.randint(1,5)\nguess=int(input("Guess 1-5: "))\nprint("Correct!" if guess==n else "Wrong, was "+str(n))`, output:`(depends on input/random)`, explanation:`Simple number guessing game.`},
+{day:"Day 49", code:`# Day 49: Print Calendar\nimport calendar\nprint(calendar.month(2025,8))`, output:`(August 2025 calendar)`, explanation:`Prints calendar for given month/year.`},
+{day:"Day 50", code:`# Day 50: Mini Calculator Function\ndef calc(a,b,op):\n    if op=='+': return a+b\n    elif op=='-': return a-b\n    elif op=='*': return a*b\n    elif op=='/': return a/b\n    else: return None\nprint(calc(10,5,'*'))`, output:`50`, explanation:`Function performs basic arithmetic based on operator.`}
+];
+let index = 0;
+
+function showProgram(i){
+  document.getElementById("codeBox").innerText = pythonPrograms[i].code;
+  document.getElementById("outputBox").innerText = "Expected Output:\n" + pythonPrograms[i].output;
+  document.getElementById("explanationBox").innerText = "Explanation:\n" + pythonPrograms[i].explanation;
+}
+
+function nextDay(){
+  index = (index + 1) % pythonPrograms.length;
+  showProgram(index);
+}
+
+// Show first program on load
+showProgram(index);
+
+</script>
+</body>
+</html>

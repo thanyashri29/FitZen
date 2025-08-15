@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Challenge Idea</title>
+<style>
+    body {
+        background-color: #121212;
+        color: white;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+    }
+    h1 {
+        color: #ccc;
+        animation: fadeIn 0.8s ease-in-out;
+    }
+    #idea-box {
+        margin-top: 30px;
+        font-size: 22px;
+        background: #1e1e1e;
+        padding: 25px;
+        border-radius: 10px;
+        min-height: 100px;
+        display: inline-block;
+        animation: fadeIn 0.8s ease-in-out;
+    }
+    button {
+        background: linear-gradient(145deg, #1e1e1e, #2b2b2b);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        margin: 20px;
+        font-size: 18px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+    button:hover {
+        transform: scale(1.1);
+        background: linear-gradient(145deg, #2b2b2b, #3a3a3a);
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+</head>
+<body>
+
+<h1 id="category-title">Your Challenge</h1>
+<div id="idea-box">Loading...</div><br>
+<button onclick="nextIdea()">Next Idea</button>
+<a href="creativity.html"><button>Back to Categories</button></a>
+
+<script>
+// Fixed ideas object
+const ideas = {
+  "Drawing": [
+    "Draw your dream house",
+    "Sketch a self-portrait using only shapes",
+    "Create a fantasy creature",
+    "Illustrate a rainy day scene",
+    "Draw a comic strip about your day",
+    "Sketch your favorite food in a creative style",
+    "Draw an object from memory",
+    "Turn your favorite song into a visual art",
+    "Draw a landscape from your window",
+    "Illustrate an underwater city"
+  ],
+  "Photography": [
+    "Capture reflections in water",
+    "Take a silhouette at sunset",
+    "Photograph something red",
+    "Shoot textures in nature",
+    "Capture a shadow pattern",
+    "Photograph a candid smile",
+    "Take a photo of movement",
+    "Capture symmetry in architecture",
+    "Shoot an old building",
+    "Take a photo through a window"
+  ],
+  "Story Writing": [
+    "Write a story in one room",
+    "A letter arrives from your future self",
+    "A stranger gives you a key with no explanation",
+    "The sun doesn’t rise one morning",
+    "Write a story where the main character can’t speak",
+    "An elevator stops between floors",
+    "A secret is hidden in a family recipe",
+    "A storm forces strangers to stay in the same cabin",
+    "Your character finds a phone with strange messages",
+    "A door appears in your room overnight"
+  ],
+  "DIY Craft": [
+    "Make a bookmark from recycled paper",
+    "Create a mini photo album",
+    "Paint rocks for decoration",
+    "Make a wall hanging from yarn",
+    "Create a pencil holder from a tin can",
+    "Upcycle a glass jar into a candle holder",
+    "Make a friendship bracelet",
+    "Design your own tote bag",
+    "Paint an old flower pot",
+    "Make a decorative collage"
+  ]
+};
+
+// Get category from URL ?type=Drawing (default to Drawing)
+let urlParams = new URLSearchParams(window.location.search);
+let category = urlParams.get('type') || "Drawing";
+
+let availableIdeas = [...ideas[category]];
+let usedIdeas = [];
+
+document.getElementById("category-title").innerText = category + " Challenge";
+
+function nextIdea() {
+    if (availableIdeas.length === 0) {
+        availableIdeas = [...ideas[category]];
+        usedIdeas = [];
+    }
+    let randomIndex = Math.floor(Math.random() * availableIdeas.length);
+    let selectedIdea = availableIdeas.splice(randomIndex, 1)[0];
+    usedIdeas.push(selectedIdea);
+    document.getElementById("idea-box").innerText = selectedIdea;
+}
+
+// Show first idea on page load
+nextIdea();
+</script>
+
+</body>
+</html>
